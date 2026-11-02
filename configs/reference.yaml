@@ -1,0 +1,30 @@
+# Reference Configuration (E0)
+run_id: E0_reference
+description: "Reference Run: Cleaned data, 4-bit QLoRA, rank 8, uniform sampling"
+model_id: "Qwen/Qwen2.5-1.5B-Instruct"
+revision: "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+seed: 42
+precision: "qlora4"
+lora_rank: 8
+lora_alpha: 16
+lora_dropout: 0.05
+target_modules:
+  - "q_proj"
+  - "k_proj"
+  - "v_proj"
+  - "o_proj"
+  - "gate_proj"
+  - "up_proj"
+  - "down_proj"
+learning_rate: 0.0002
+lr_scheduler_type: "cosine"
+warmup_ratio: 0.05
+epochs: 2
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+max_seq_length: 2304
+mask_assistant_only: true
+training_data: "artifacts/cleaned.jsonl"
+sampling: "uniform"
+generate_max_new_tokens: 200
+generate_do_sample: false

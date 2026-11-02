@@ -1,0 +1,175 @@
+[
+  {
+    "id": "dv-00006",
+    "error_type": "date_error",
+    "short_evidence": "Received: 2026-07-02 (Thu) Source: twitter  @NimbusPayCare The App shows a fraudulent payment made on my account. It was day before yesterda",
+    "raw_prediction": "{\"category\": \"fraud\", \"priority\": \"P1\", \"amount_paise\": 13000000, \"txn_date\": \"2026-08-15\", \"txn_id\": \"NP7545379360\", \"channel\": null, \"language\": \"en",
+    "gold": {
+      "txn_date": "2026-06-30"
+    },
+    "predicted": {
+      "txn_date": "2026-08-15"
+    },
+    "mismatch_fields": [
+      "txn_date"
+    ],
+    "mechanism": "Predicted txn_date '2026-08-15' vs gold '2026-06-30'; likely relative date calculation error or distraction from earlier email quote.",
+    "proposed_fix": "Train model with explicit date grounding pairs contrasting Received header with message body."
+  },
+  {
+    "id": "dv-00013",
+    "error_type": "amount_error",
+    "short_evidence": "Received: 2026-08-16 (Sun) Source: ivr-transcript  [IVR transcript] Hey, Why was my card declined in a shop? Transaction ID np 72036 90498. ",
+    "raw_prediction": "{\"category\": \"payment_failed\", \"priority\": \"P3\", \"amount_paise\": 9999900, \"txn_date\": \"2026-08-15\", \"txn_id\": \"NP7203690498\", \"channel\": \"card\", \"lang",
+    "gold": {
+      "amount_paise": 5500
+    },
+    "predicted": {
+      "amount_paise": 9999900
+    },
+    "mismatch_fields": [
+      "amount_paise"
+    ],
+    "mechanism": "Predicted amount 9999900 vs gold 5500; distracted by account balance, fee, or failed rupee-paise unit conversion.",
+    "proposed_fix": "Add negative examples featuring explicit balance and fee distractors alongside disputed amounts."
+  },
+  {
+    "id": "dv-00025",
+    "error_type": "priority_error",
+    "short_evidence": "Received: 2026-06-04 (Thu) Source: twitter  @NimbusPayCare I did not get the cashback that was promised on the offer. Mode: UPI. My phone is",
+    "raw_prediction": "{\"category\": \"offers\", \"priority\": \"P2\", \"amount_paise\": 2400, \"txn_date\": \"2026-05-15\", \"txn_id\": null, \"channel\": \"upi\", \"language\": \"en\", \"needs_hu",
+    "gold": {
+      "priority": "P3"
+    },
+    "predicted": {
+      "priority": "P2"
+    },
+    "mismatch_fields": [
+      "priority"
+    ],
+    "mechanism": "Expected priority 'P3' but predicted 'P2'; likely boundary confusion near \u20b95,000/\u20b950,000 or missed subtle legal trigger.",
+    "proposed_fix": "Augment training data with synthetic boundary tickets around \u20b94,999 vs \u20b95,000 and \u20b949,999 vs \u20b950,000."
+  },
+  {
+    "id": "dv-00038",
+    "error_type": "language",
+    "short_evidence": "Received: 2026-06-16 (Tue) Source: twitter  @NimbusPayCare Registered email id kaise change karun? App version 5.0.3 hai.",
+    "raw_prediction": "{\"category\": \"other\", \"priority\": \"P3\", \"amount_paise\": null, \"txn_date\": null, \"txn_id\": null, \"channel\": null, \"language\": \"en\", \"needs_human\": fals",
+    "gold": {
+      "language": "hi-en"
+    },
+    "predicted": {
+      "language": "en"
+    },
+    "mismatch_fields": [
+      "language"
+    ],
+    "mechanism": "Field mismatch on ['language'].",
+    "proposed_fix": "Expand domain coverage for specific field tokens."
+  },
+  {
+    "id": "dv-00049",
+    "error_type": "category_error",
+    "short_evidence": "Received: 2026-09-17 (Thu) Source: ivr-transcript  [IVR transcript] Hey, The refund has not appeared in my account. It was for 27444 rupees.",
+    "raw_prediction": "{\"category\": \"payment_failed\", \"priority\": \"P1\", \"amount_paise\": 2744400, \"txn_date\": \"2026-09-07\", \"txn_id\": \"NP5188960369\", \"channel\": \"wallet\", \"la",
+    "gold": {
+      "category": "refund"
+    },
+    "predicted": {
+      "category": "payment_failed"
+    },
+    "mismatch_fields": [
+      "category"
+    ],
+    "mechanism": "Predicted 'payment_failed' vs gold 'refund'; intent ambiguity between failed payment and refund request.",
+    "proposed_fix": "Refine category contrastive pairs emphasizing user initiation vs merchant reversal."
+  },
+  {
+    "id": "dv-00064",
+    "error_type": "amount_error",
+    "short_evidence": "Received: 2026-06-02 (Tue) Source: app-chat  Hi team, I am having difficulties to verify my identity. App version is 7.2.1. Kindly resolve t",
+    "raw_prediction": "{\"category\": \"kyc\", \"priority\": \"P3\", \"amount_paise\": 400000, \"txn_date\": null, \"txn_id\": null, \"channel\": null, \"language\": \"en\", \"needs_human\": fals",
+    "gold": {
+      "amount_paise": null
+    },
+    "predicted": {
+      "amount_paise": 400000
+    },
+    "mismatch_fields": [
+      "amount_paise"
+    ],
+    "mechanism": "Predicted amount 400000 vs gold None; distracted by account balance, fee, or failed rupee-paise unit conversion.",
+    "proposed_fix": "Add negative examples featuring explicit balance and fee distractors alongside disputed amounts."
+  },
+  {
+    "id": "dv-00082",
+    "error_type": "needs_human_error",
+    "short_evidence": "Received: 2026-09-04 (Fri) Source: ivr-transcript  [IVR transcript] Hey, why couldn't I use my card at a store? Amount: Rs. 251 Date of tran",
+    "raw_prediction": "{\"category\": \"payment_failed\", \"priority\": \"P3\", \"amount_paise\": 25100, \"txn_date\": \"2026-09-04\", \"txn_id\": \"NP7682003971\", \"channel\": \"card\", \"langua",
+    "gold": {
+      "needs_human": false
+    },
+    "predicted": {
+      "needs_human": true
+    },
+    "mismatch_fields": [
+      "needs_human"
+    ],
+    "mechanism": "needs_human mismatch: predicted True vs gold False; missed repeat-contact cue or subtle frustration phrase.",
+    "proposed_fix": "Curate dedicated repeat-contact lexicon pairs (e.g. 'third time', 'baar baar') in train set."
+  },
+  {
+    "id": "dv-00100",
+    "error_type": "date_error",
+    "short_evidence": "Received: 2026-08-24 (Mon) Source: app-chat  URGENT!! I have been double charged. That was day before yesterday. It was from the NimbusPay w",
+    "raw_prediction": "{\"category\": \"refund\", \"priority\": \"P3\", \"amount_paise\": 24400, \"txn_date\": \"2026-08-03\", \"txn_id\": \"NP7647564242\", \"channel\": \"wallet\", \"language\": \"",
+    "gold": {
+      "txn_date": "2026-08-22"
+    },
+    "predicted": {
+      "txn_date": "2026-08-03"
+    },
+    "mismatch_fields": [
+      "txn_date"
+    ],
+    "mechanism": "Predicted txn_date '2026-08-03' vs gold '2026-08-22'; likely relative date calculation error or distraction from earlier email quote.",
+    "proposed_fix": "Train model with explicit date grounding pairs contrasting Received header with message body."
+  },
+  {
+    "id": "dv-00116",
+    "error_type": "txn_id",
+    "short_evidence": "Received: 2026-06-05 (Fri) Source: app-chat  Hey, I did not get the cashback that was promised on the offer. \u20b9282 is the amount. Mode: walle",
+    "raw_prediction": "{\"category\": \"offers\", \"priority\": \"P3\", \"amount_paise\": 28200, \"txn_date\": null, \"txn_id\": \"NP1234567890\", \"channel\": \"wallet\", \"language\": \"en\", \"ne",
+    "gold": {
+      "txn_id": null
+    },
+    "predicted": {
+      "txn_id": "NP1234567890"
+    },
+    "mismatch_fields": [
+      "txn_id"
+    ],
+    "mechanism": "Field mismatch on ['txn_id'].",
+    "proposed_fix": "Expand domain coverage for specific field tokens."
+  },
+  {
+    "id": "dv-00143",
+    "error_type": "priority_error",
+    "short_evidence": "Received: 2026-09-12 (Sat) Source: app-chat  Hi team, Why does a payment show up twice? My earlier ticket number is #29322. Date of transact",
+    "raw_prediction": "{\"category\": \"refund\", \"priority\": \"P3\", \"amount_paise\": 130000, \"txn_date\": \"2026-09-12\", \"txn_id\": null, \"channel\": \"upi\", \"language\": \"en\", \"needs_",
+    "gold": {
+      "priority": "P1",
+      "amount_paise": 13000000
+    },
+    "predicted": {
+      "priority": "P3",
+      "amount_paise": 130000
+    },
+    "mismatch_fields": [
+      "priority",
+      "amount_paise"
+    ],
+    "mechanism": "Expected priority 'P1' but predicted 'P3'; likely boundary confusion near \u20b95,000/\u20b950,000 or missed subtle legal trigger.",
+    "proposed_fix": "Augment training data with synthetic boundary tickets around \u20b94,999 vs \u20b95,000 and \u20b949,999 vs \u20b950,000."
+  }
+]

@@ -1,0 +1,24 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.tmp
+.pytest_cache/
+
+# Sensitive data and model caches
+.cache/
+*.bin
+*.pt
+
+# Exclude training data from Git submission per ASSIGNMENT.md
+candidate_pack/data/train.jsonl
+artifacts/cleaned.jsonl
+
+# Explicitly ensure required submission files are tracked
+!predictions_test.jsonl
+!adapter/adapter_config.json
+!adapter/adapter_model.safetensors
+!cleaning_log.csv
+!notebook.ipynb
+!report.md
+!README.md
