@@ -144,3 +144,4 @@ def run_full_release_gate(root_dir: str = ".") -> Dict[str, Any]:
         results["cleaning_log_integrity"] = {"passed": False, "issues": ["Files not ready"]}
 
     return results
+

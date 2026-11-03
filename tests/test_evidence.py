@@ -91,3 +91,4 @@ def test_quote_filtering():
     assert "legal notice" not in non_quoted
     assert has_legal_threat(text) is False
     assert find_canonical_np_txn_id(text) is None
+

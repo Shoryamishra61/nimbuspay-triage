@@ -31,3 +31,4 @@ def test_cleaning_log_contract():
     # 3. Exactly 1,445 = len(cleaned_rows) + count(drops)
     drops_cnt = sum(1 for l in log_rows if l["action"] == "drop")
     assert len(train_rows) == len(cleaned_rows) + drops_cnt
+

@@ -37,7 +37,7 @@ A cross-split fingerprint scan revealed that **32 tickets in `train.jsonl` appea
 
 ### 2.1 Model Selection & Architecture
 - **Base Model:** `Qwen/Qwen2.5-1.5B-Instruct` (pinned revision `989aa7980e4cf806f80c7fef2b1adb7bc71aa306`). Selected for its native ChatML chat template, strong multilingual / Hinglish comprehension, and compact 1.54B parameter footprint that fits within free Google Colab T4 (16 GB VRAM).
-- **PEFT Adaptation:** LoRA applied to all attention and MLP projections (`q_proj`, `k_proj`, `v_proj`, `o_proj`, `gate_proj`, `up_proj`, `down_proj`). For $r=8, \alpha=16$, trainable parameters total **9,175,040** (0.59% of base weights), well within the 50,000,000 parameter ceiling.
+- **PEFT Adaptation:** LoRA applied to all attention and MLP projections (`q_proj`, `k_proj`, `v_proj`, `o_proj`, `gate_proj`, `up_proj`, `down_proj`). For $r=8, \alpha=16$, trainable parameters total **9,232,384** (0.59% of base weights), well within the 50,000,000 parameter ceiling.
 - **Assistant-Only Loss Masking:** Formatted via ChatML (`<|im_start|>system...<|im_end|>\n<|im_start|>user...<|im_end|>\n<|im_start|>assistant\n{json}<|im_end|>\n`). Numerically verified via unit test: all prompt tokens receive label `-100`, while the assistant JSON and `<|im_end|>` token retain true targets.
 - **Sequence Length Evidence:** Token distribution profiling measured prompt lengths at median 103, 95th-percentile 147, and maximum 2,145 tokens (quoted emails). Target JSON lengths span 51 to 85 tokens. Setting `max_seq_length = 2304` prevents any target truncation.
 
@@ -52,7 +52,7 @@ All training trials were conducted on a single T4 GPU with effective batch size 
 | **E1** | Raw Training Data Ablation | Raw | 4-bit QLoRA | 8 | 362 | **62.0%** | 84.3% | 4.22 GiB | 41.2 | 58.9% |
 | **E2** | FP16 LoRA Precision Ablation | Cleaned | FP16 LoRA | 8 | 338 | **79.0%** | 92.4% | 7.85 GiB | 34.6 | 75.6% |
 | **E3** | Rank 16 Capacity Ablation | Cleaned | 4-bit QLoRA | 16 | 338 | **77.5%** | 91.8% | 4.48 GiB | 40.8 | 73.8% |
-| **E4** | Original Idea: Hardcase Stratified | Cleaned | 4-bit QLoRA | 8 | 338 | **80.5%** | 93.2% | 4.24 GiB | 39.5 | 77.4% |
+| **E4** | Original Idea: Hardcase Stratified | Cleaned | 4-bit QLoRA | 8 | 338 | **80.5%** | 92.0% | 4.24 GiB | 39.5 | 77.4% |
 
 ### 2.3 Scientific Findings
 1. **Data Cleaning Impact (E0 vs E1):** Cleaning noisy labels produced a **+16.5% exact match surge** ($62.0\% \to 78.5\%$). Training on uncleaned data severely confused schema keys (`prio` vs `priority`) and rupee scaling.
@@ -92,3 +92,4 @@ On the best fine-tuned model (E4, 80.5% dev exact match), field accuracy breakdo
 ## 4. AI Tool Disclosure & Verification Attestation
 - **AI Coding Assistant Disclosure:** An AI coding assistant was used for writing boilerplate tests, modular file scaffolding, regex profiling, and data formatting.
 - **Verification Responsibility:** The candidate independently verified every line of code, audited all dataset mutations, executed all tests locally, and validated model parameter counts and metric provenance against raw artifacts. No external model or API was used to generate training targets or test predictions.
+

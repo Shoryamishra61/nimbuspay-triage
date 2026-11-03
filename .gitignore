@@ -4,15 +4,17 @@ __pycache__/
 *$py.class
 *.tmp
 .pytest_cache/
+scratch/
 
 # Sensitive data and model caches
 .cache/
 *.bin
 *.pt
 
-# Exclude training data from Git submission per ASSIGNMENT.md
-candidate_pack/data/train.jsonl
+# Exclude raw data files from Git submission per ASSIGNMENT.md
+candidate_pack/data/
 artifacts/cleaned.jsonl
+artifacts/
 
 # Explicitly ensure required submission files are tracked
 !predictions_test.jsonl

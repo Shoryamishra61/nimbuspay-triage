@@ -48,3 +48,4 @@ def test_token_mask_numerical_proof():
     target_ids = labels[p_len:]
     decoded_target = tok.decode(target_ids)
     assert "<|im_end|>" in decoded_target
+

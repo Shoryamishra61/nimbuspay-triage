@@ -150,3 +150,4 @@ def print_audit_summary(findings: Dict[str, Any]):
     print(f"Rupee-vs-Paise Candidate Rows: {len(findings['rupee_vs_paise_candidates'])}")
     print(f"Candidate Priority Inconsistencies: {len(findings['priority_inconsistencies'])}")
     print("=" * 60)
+

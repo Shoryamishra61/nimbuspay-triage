@@ -77,3 +77,4 @@ def test_metamorphic_np_casing_and_separators():
     ]
     for v in variants:
         assert find_canonical_np_txn_id(f"Transaction ID {v}") == "NP1234567890"
+

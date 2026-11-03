@@ -116,3 +116,4 @@ def test_non_transaction_categories_nullability():
         }
         issues = validate_record(r)
         assert any(i.issue_type == "nullability_violation" for i in issues)
+

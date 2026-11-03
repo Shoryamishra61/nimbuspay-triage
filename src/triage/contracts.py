@@ -185,3 +185,4 @@ def validate_record(obj: Any) -> List[ValidationIssue]:
         )
 
     return issues
+

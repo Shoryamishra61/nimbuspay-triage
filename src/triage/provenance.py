@@ -49,3 +49,4 @@ def write_manifest(manifest: Dict[str, Any], out_path: str):
     with open(tmp_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
     os.replace(tmp_path, out_path)
+

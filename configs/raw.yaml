@@ -29,3 +29,4 @@ training_data: "candidate_pack/data/train.jsonl"
 sampling: "uniform"
 generate_max_new_tokens: 200
 generate_do_sample: false
+

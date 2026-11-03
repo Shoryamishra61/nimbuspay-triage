@@ -151,3 +151,4 @@ def format_markdown_table(results: List[ExperimentResult]) -> str:
             f"| **{r.run_id}** | {r.description} | {r.data_source} | {r.precision} | {r.lora_rank} | {r.optimizer_steps} | {exact_str} | {field_str} | {vram_str} | {min_str} | {r.notes} |"
         )
     return "\n".join(lines)
+

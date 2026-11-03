@@ -9,7 +9,7 @@
 - **Base Model:** `Qwen/Qwen2.5-1.5B-Instruct` (pinned revision `989aa7980e4cf806f80c7fef2b1adb7bc71aa306`)
 - **Quantization:** 4-bit NF4 (`bitsandbytes`) with FP16 compute
 - **Adapter:** PEFT LoRA ($r=8, \alpha=16$, dropout $0.05$) on all 7 linear projections
-- **Trainable Parameters:** **9,175,040** (0.59% of base weights; strictly $\le 50{,}000{,}000$)
+- **Trainable Parameters:** **9,232,384** (0.59% of base weights; strictly $\le 50{,}000{,}000$)
 - **Best Measured Result:** **80.5% Dev Exact Match** (93.2% Mean Field Accuracy) with 4-bit QLoRA r=8 and hard-case stratified sampling on cleaned data (**77.4% on 168-row Overlap-Free Diagnostic Set**).
 - **Peak T4 VRAM:** **4.21 GiB** (comfortably fits on free Colab T4)
 - **Top-to-Bottom Execution Time:** **< 45 minutes** for full training and inference
@@ -43,7 +43,7 @@ nimbuspay-triage/
 │   ├── release.py                 # 18 hard release verification gates
 │   └── provenance.py              # Run manifests and runtime environment capture
 ├── configs/                       # Declarative experiment configs (E0-E4)
-└── tests/                         # 24 automated unit, contract, and metamorphic tests
+└── tests/                         # 28 automated unit, contract, and metamorphic tests
 ```
 
 ---
@@ -107,7 +107,7 @@ In strict compliance with `ASSIGNMENT.md` Rule 9:
 ---
 
 ## 5. Local Automated Testing
-To run the full suite of 24 unit, contract, metamorphic, and release tests:
+To run the full suite of 28 unit, contract, metamorphic, and release tests:
 ```bash
 python -m pytest -o pythonpath=. tests/ -v
 ```
@@ -118,8 +118,9 @@ python -m pytest -o pythonpath=. tests/ -v
 Verified via `src/triage/release.py`:
 - [x] All 7 required files present and verified authentic
 - [x] Pinned base model `Qwen/Qwen2.5-1.5B-Instruct` ($\le 4\text{B}$)
-- [x] PEFT LoRA adapter $\le 50\text{M}$ trainable parameters (9,175,040 params)
+- [x] PEFT LoRA adapter $\le 50\text{M}$ trainable parameters (9,232,384 params)
 - [x] `predictions_test.jsonl` contains exactly 400 lines matching unique `ts-` IDs
 - [x] `cleaning_log.csv` contains exactly 262 entries reconciling $1{,}445 = 1{,}349 + 96$
 - [x] Free T4 compatible peak memory (4.21 GiB) and runtime (<45 min)
 - [x] Zero training data, base model weights, or private tokens committed to Git
+

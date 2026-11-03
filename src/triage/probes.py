@@ -170,3 +170,4 @@ def extract_top_failure_cases(
 
     # Return diverse failures
     return failures[:max_cases]
+

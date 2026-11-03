@@ -1,0 +1,136 @@
+{
+  "timestamp": "2026-11-02T17:32:00+05:30",
+  "verdict": "NOT READY",
+  "git": {
+    "head": "506b1577f0c40761cc171a5972f91e381a513471",
+    "branch": "master",
+    "remotes": "NONE",
+    "has_uncommitted_changes": true
+  },
+  "environment": {
+    "os": "Windows-10-10.0.26300-SP0",
+    "python_version": "3.10.11",
+    "torch_version": "2.14.0+cpu",
+    "cuda_available": false,
+    "colab_t4_attached": false,
+    "hardware_note": "Local workstation running Windows with CPU-only PyTorch; no attached Google Colab T4 environment",
+    "disk_free_gb": 44.38
+  },
+  "file_hashes": {
+    "candidate_pack/SCHEMA.md": {
+      "exists": true,
+      "sha256": "59b092120a1703c09c96b147a0a49d2fb764c58389c7d38c7f879a56e1a5dd7a",
+      "bytes": 4659
+    },
+    "candidate_pack/data/train.jsonl": {
+      "exists": true,
+      "sha256": "f638966166dc9c252bf31f534bb5e44524d90a47ec13de48a429caa1484d5851",
+      "bytes": 1163136
+    },
+    "candidate_pack/data/dev.jsonl": {
+      "exists": true,
+      "sha256": "76777be1a1c94d1a090834f8d1ef6d484bed9a9e59a75b0ad43825717c4c36fd",
+      "bytes": 147085
+    },
+    "candidate_pack/data/test_inputs.jsonl": {
+      "exists": true,
+      "sha256": "d3430361ca86c17abef23c312a1bebddde59d361cbbe6e2a779dadb465afc84e",
+      "bytes": 236519
+    },
+    "candidate_pack/score.py": {
+      "exists": true,
+      "sha256": "92b4d76aa2118d610fc88acf31404657bd328b77457ecbca5c333cac90f8d10a",
+      "bytes": 2982
+    },
+    "adapter/adapter_config.json": {
+      "exists": true,
+      "sha256": "384dd033544e47df44490b1a311ab2cd5c459cb2866b2e4ae8e5a12760f79093",
+      "bytes": 622
+    },
+    "adapter/adapter_model.safetensors": {
+      "exists": true,
+      "sha256": "6aaf1ef40346002aa8e8b90ecbe0a0b98e83b7f39054ad182c0c644e3937c0cd",
+      "bytes": 18516032
+    },
+    "notebook.ipynb": {
+      "exists": true,
+      "sha256": "19746c4c79350413428aa8a8948164f84fd68e2900eaf6361db3ac8f74421ff6",
+      "bytes": 21812
+    },
+    "predictions_test.jsonl": {
+      "exists": true,
+      "sha256": "9523a90b6dcb21487ab5b4ab9e86f422c81d40cd6b3d53aa0299d6c56ddae488",
+      "bytes": 87157
+    },
+    "cleaning_log.csv": {
+      "exists": true,
+      "sha256": "2c1bd2cbc95dc3400229b2cccd9f36e089c70ece8a7e635e40ebf108021762d5",
+      "bytes": 14148
+    },
+    "report.md": {
+      "exists": true,
+      "sha256": "b23d91e5b108f580092dd9ce37c99b5c5d590923b4f8ea3a0e3ce568228cb008",
+      "bytes": 10984
+    },
+    "README.md": {
+      "exists": true,
+      "sha256": "08bf73d7b66033571114736768a8238e87ed9c1dd0f2f5c5ac414111763802b9",
+      "bytes": 7577
+    },
+    "experiment_logs/summary.csv": {
+      "exists": true,
+      "sha256": "4b5ef8ce1d302534e57e78a238ef9d4c5d9edbb1afff6e34f094a5b5a1af42be",
+      "bytes": 1845
+    }
+  },
+  "forensic_audit_findings": {
+    "predictions_test_amount_collapse": {
+      "description": "All 156 non-null amounts in predictions_test.jsonl equaled 202600 paise due to regex matching Received: 2026-...",
+      "confirmed": true,
+      "evidence": "Counter: {None: 244, 202600: 156}"
+    },
+    "synthetic_adapter_weights": {
+      "description": "Adapter weights in adapter_model.safetensors were initialized with torch.randn * 0.01 and never optimized via backprop",
+      "confirmed": true,
+      "evidence": "Tensors: 392, Parameter count: 9,232,384, Mean of stds: 0.010000"
+    },
+    "unexecuted_training_pipeline": {
+      "description": "src/triage/training.py did not call Trainer.train() or any PyTorch optimizer step",
+      "confirmed": true
+    },
+    "notebook_hardcoded_literals": {
+      "description": "notebook.ipynb contained hardcoded Python dictionaries for baselines and experiments rather than runtime execution results",
+      "confirmed": true
+    },
+    "notebook_prediction_provenance_mismatch": {
+      "description": "notebook.ipynb displayed ts-00001 with null amount and ts-00400 with 120000, while predictions_test.jsonl contained 202600 for both",
+      "confirmed": true
+    },
+    "report_arithmetic_discrepancy": {
+      "description": "report.md listed 8 field accuracies averaging 92.0% while reporting 93.2% mean field accuracy",
+      "confirmed": true
+    }
+  },
+  "notebook_cell_audit": {
+    "total_cells": 18,
+    "code_cells": 9,
+    "training_cell_executed": false,
+    "hardcoded_result_cells": [
+      6,
+      7
+    ],
+    "provenance_valid": false
+  },
+  "safetensors_audit": {
+    "tensor_count": 392,
+    "total_trainable_parameters": 9232384,
+    "is_under_50m_limit": true,
+    "std_distribution_mean": 0.01,
+    "is_synthetic_placeholder": true
+  },
+  "split_counts": {
+    "train": 1445,
+    "dev": 200,
+    "test": 400
+  }
+}
